@@ -36,9 +36,13 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      min-height: 100vh;
-      height: 100dvh;         /* mejor soporte en iOS */
-      padding: 16px;           /* que no quede pegado al borde */
+
+      /* alturas compatibles con todos los móviles */
+      height: 100dvh;     /* iPhone */
+      height: 100svh;     /* Android Chrome */
+      height: 100vh;      /* fallback general */
+
+      padding: 16px;
       box-sizing: border-box;
     }
 
@@ -98,8 +102,13 @@
       font-family: 'Comic Sans MS', cursive, sans-serif;
       line-height: 1.6;
       box-sizing: border-box;
+
+      /* evita que se corte arriba o abajo */
       max-height: 100dvh;
-      overflow-y: auto;         /* si la carta es larga, se puede hacer scroll */
+      max-height: 100svh;
+      max-height: 100vh;
+
+      overflow-y: auto; /* scroll si el texto es largo */
     }
 
     .notepad h3 {
