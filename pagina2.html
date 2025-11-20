@@ -6,6 +6,11 @@
   <title>Pregunta Especial</title>
   
   <style>
+    .btn:focus,
+    .btn:active {
+    outline: none;
+    box-shadow: none;
+    }
     body {
       background-color: #fce4ec;
       margin: 0;
@@ -76,6 +81,7 @@
         font-size: 18px;
         margin: 8px 0;
       }
+
     }
   </style>
 </head>
@@ -111,10 +117,12 @@
       }
 
       const btn = document.getElementById("noBtn");
+      // Quitar el foco para que no quede seleccionado
+  btn.blur();
 
       // Rango de movimiento más razonable para móviles
-      const maxX = 500;
-      const maxY = 400;
+      const maxX = 80;
+      const maxY = 80;
       const x = Math.random() * (maxX * 2) - maxX; // entre -500 y -400
       const y = Math.random() * (maxY * 2) - maxY; // entre -500 y -400
 
