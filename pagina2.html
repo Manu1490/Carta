@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Pregunta Especial</title>
   
   <style>
@@ -14,8 +14,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       text-align: center;
+
+      /* Alturas compatibles con móviles (iOS + Android) */
+      height: 100dvh;
+      height: 100svh;
+      height: 100vh;
+
+      box-sizing: border-box;
     }
 
     .container {
@@ -25,10 +31,13 @@
       border-radius: 25px;
       width: 90%;
       max-width: 400px;
+      box-sizing: border-box;
     }
 
     h2 {
       color: #d81b60;
+      margin-top: 0;
+      font-size: 1.5rem;
     }
 
     .btn {
@@ -50,6 +59,24 @@
     #noBtn {
       position: relative;
     }
+
+    /* Ajustes para pantallas pequeñas */
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      .btn {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 18px;
+        margin: 8px 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -59,23 +86,38 @@
 
     <button class="btn" onclick="respuestaSi()">Sí 💗</button>
 
-    <button class="btn" id="noBtn" onmouseover="moverNo()">No 😢</button>
+    <!-- En móvil: touchstart; en PC: mouseover -->
+    <button
+      class="btn"
+      id="noBtn"
+      onmouseover="moverNo()"
+      ontouchstart="moverNo(event)"
+    >
+      No 😢
+    </button>
 
   </div>
 
   <script>
-    /*function respuestaSi() {
-      alert("Sabía que dirías que sí, mi amor 💖");
-    }*/
-
     function respuestaSi() {
-        window.location.href = "girasol.html"; // nueva página
+      window.location.href = "girasol.html"; // nueva página
     }
 
-    function moverNo() {
+    function moverNo(e) {
+      // En móvil evitamos que se dispare el click antes de moverse
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
       const btn = document.getElementById("noBtn");
-      const x = Math.random() * 500 - 400;
-      const y = Math.random() * 500 - 400;
+
+      // Rango de movimiento más razonable para móviles
+      const maxX = 500;
+      const maxY = 400;
+      const x = Math.random() * (maxX * 2) - maxX; // entre -500 y -400
+      const y = Math.random() * (maxY * 2) - maxY; // entre -500 y -400
+
       btn.style.transform = `translate(${x}px, ${y}px)`;
     }
   </script>
