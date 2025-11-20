@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pregunta Especial</title>
+  
+  <style>
+    body {
+      background-color: #fce4ec;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff0f6;
+      border: 3px solid #f8bbd0;
+      padding: 30px;
+      border-radius: 25px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h2 {
+      color: #d81b60;
+    }
+
+    .btn {
+      background-color: #f8bbd0;
+      border: 2px solid #f48fb1;
+      padding: 12px 22px;
+      font-size: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin: 12px;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #f48fb1;
+      transform: scale(1.08);
+    }
+
+    #noBtn {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>💞 ¿Quieres ser mi novia? 💞</h2>
+
+    <button class="btn" onclick="respuestaSi()">Sí 💗</button>
+
+    <button class="btn" id="noBtn" onmouseover="moverNo()">No 😢</button>
+
+  </div>
+
+  <script>
+    /*function respuestaSi() {
+      alert("Sabía que dirías que sí, mi amor 💖");
+    }*/
+
+    function respuestaSi() {
+        window.location.href = "girasol.html"; // nueva página
+    }
+
+    function moverNo() {
+      const btn = document.getElementById("noBtn");
+      const x = Math.random() * 500 - 400;
+      const y = Math.random() * 500 - 400;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+  </script>
+
+</body>
+</html>
