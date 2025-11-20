@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuestra Flor en Python 🌻</title>
+  <title>Cambio de estado sentimental 💘</title>
 
   <style>
     body {
@@ -31,105 +31,60 @@
       margin-top: 0;
     }
 
-    canvas {
-      margin-top: 15px;
-      border-radius: 15px;
-      border: 2px solid #f8bbd0;
-      background: black;
+    .message {
+      font-size: 20px;
+      margin: 15px 0;
+      color: #7b1f4a;
     }
 
-    .hint {
-      font-size: 14px;
+    .countdown {
+      font-size: 40px;
+      font-weight: bold;
       margin-top: 10px;
-      color: #7b1f4a;
+      color: #d81b60;
     }
   </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h2>🌻 Se está dibujando nuestra flor especial 🌻</h2>
-  <p>Esta flor está basada en tu código Python original, adaptada para dibujarse en el navegador.</p>
+  <div class="container">
+    <h2>💖 Momento importante 💖</h2>
 
-  <canvas id="canvas" width="360" height="360"></canvas>
+    <p class="message">
+      Hora de cambiar tu situación sentimental.
+    </p>
 
-  <p class="hint">Hecho con mucho cariño 💛</p>
-</div>
+    <p>Redirigiendo en...</p>
+    <div class="countdown" id="countdown">5</div>
+  </div>
 
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+  <script>
+    let seconds = 5;
+    const countdownEl = document.getElementById("countdown");
 
-const w = canvas.width;
-const h = canvas.height;
-const cx = w / 2;
-const cy = h / 2;
+    const intervalId = setInterval(() => {
+      seconds--;
+      countdownEl.textContent = seconds;
 
-// === BASE NEGRA ===
-ctx.fillStyle = "black";
-ctx.fillRect(0, 0, w, h);
+      if (seconds <= 0) {
+        clearInterval(intervalId);
+        abrirInstagram();
+      }
+    }, 1000);
 
-// === PRIMERA PARTE DEL CÓDIGO (Trazos amarillos en espiral) ===
-let i1 = 0;
-function drawYellow() {
-  if (i1 >= 195) {
-    clearInterval(yellowInterval);
-    seedsInterval = setInterval(drawSeed, 10);
-    return;
-  }
+    function abrirInstagram() {
+      const username = "angiie1_"; // ← cámbialo por el tuyo
 
-  ctx.strokeStyle = "yellow";
-  ctx.lineWidth = 2;
+      // 1) Intenta abrir la app nativa
+      window.location.href = "instagram://user?username=" + username;
 
-  let i = i1;
-  let angle = i * (Math.PI / 30);
-  let r = i * 0.6;
-
-  let x1 = cx + Math.cos(angle) * r;
-  let y1 = cy + Math.sin(angle) * r;
-
-  let x2 = cx + Math.cos(angle + 2) * (r * 0.8);
-  let y2 = cy + Math.sin(angle + 2) * (r * 0.8);
-
-  ctx.beginPath();
-  ctx.moveTo(x1, y1);
-  ctx.lineTo(x2, y2);
-  ctx.stroke();
-
-  i1++;
-}
-
-// === SEGUNDA PARTE (Patrón Fibonacci del Turtle) ===
-let i2 = 0;
-function drawSeed() {
-  if (i2 >= 300) {
-    clearInterval(seedsInterval);
-    return;
-  }
-
-  const phi = 137.508 * (Math.PI / 180);
-  const r = 4 * Math.sqrt(i2);
-  const theta = i2 * phi;
-
-  const x = cx + r * Math.cos(theta);
-  const y = cy + r * Math.sin(theta);
-
-  ctx.fillStyle = "orange";
-  ctx.strokeStyle = "orangered";
-
-  ctx.beginPath();
-  ctx.arc(x, y, 4, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-
-  i2++;
-}
-
-// === ARRANCAR ANIMACIÓN ===
-let yellowInterval = setInterval(drawYellow, 20);
-let seedsInterval = null;
-
-</script>
+      // 2) Si falla (no abre la app), entonces abre la web después de 1.2s
+      setTimeout(() => {
+        window.location.href = "https://instagram.com/" + username;
+      }, 1200);
+    }
+  </script>
 
 </body>
 </html>
