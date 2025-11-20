@@ -1,8 +1,8 @@
 <!DOCTYPE html> 
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Carta Secreta</title>
   <style>
     .nav-button {
@@ -15,38 +15,57 @@
       border-radius: 12px;
       cursor: pointer;
       transition: 0.2s;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .nav-button:hover {
       background-color: #f48fb1;
       transform: scale(1.05);
     }
+
     body {
       font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
       background-color: #fce4ec;
     }
+
     .screen {
       display: none;
       justify-content: center;
       align-items: center;
-      height: 100vh;
       text-align: center;
+      min-height: 100vh;
+      height: 100dvh;         /* mejor soporte en iOS */
+      padding: 16px;           /* que no quede pegado al borde */
+      box-sizing: border-box;
     }
+
     .active {
       display: flex;
     }
+
     .password-screen {
       flex-direction: column;
     }
+
+    .password-screen h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
     .keypad {
       display: grid;
-      grid-template-columns: repeat(3, 60px);
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 20px;
-      justify-content: center;
+      width: 100%;
+      max-width: 260px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
     .key {
       background-color: #f8bbd0;
       border: none;
@@ -55,28 +74,58 @@
       padding: 15px;
       cursor: pointer;
       transition: background 0.2s;
+      min-height: 52px;         /* cómodo para el dedo */
     }
+
     .key:hover {
       background-color: #f48fb1;
     }
+
     .input-display {
       font-size: 24px;
       margin-top: 20px;
       letter-spacing: 8px;
     }
+
     .notepad {
       background-color: #fff0f6;
       border: 3px solid #f8bbd0;
       padding: 20px;
       border-radius: 20px;
-      width: 90%;
+      width: 100%;
       max-width: 500px;
       text-align: left;
       font-family: 'Comic Sans MS', cursive, sans-serif;
       line-height: 1.6;
+      box-sizing: border-box;
+      max-height: 100dvh;
+      overflow-y: auto;         /* si la carta es larga, se puede hacer scroll */
     }
+
     .notepad h3 {
       margin-top: 0;
+    }
+
+    /* Ajustes específicos para pantallas pequeñas (iPhone) */
+    @media (max-width: 480px) {
+      .input-display {
+        font-size: 20px;
+        letter-spacing: 6px;
+      }
+
+      .key {
+        font-size: 18px;
+        padding: 12px;
+      }
+
+      .notepad {
+        font-size: 0.95rem;
+      }
+
+      .nav-button {
+        font-size: 16px;
+        padding: 10px 16px;
+      }
     }
   </style>
 </head>
@@ -99,6 +148,7 @@
     <div></div>
   </div>
 </div>
+
 <div id="notepadScreen" class="screen">
   <div class="notepad">
     <h3 id="date">📅 24 Junio 2025 </h3>
@@ -132,6 +182,7 @@
     </button>
   </div>
 </div>
+
 <script>
   const correctPassword = '4758';
   let input = '';
@@ -146,41 +197,37 @@
       input += digit;
       updateDisplay();
     }
-    const display = document.getElementById('inputDisplay');
-    display.textContent = input.padEnd(4, '•');
 
     if (input.length === 4) {
       if (input === correctPassword) {
         document.getElementById('passwordScreen').classList.remove('active');
         document.getElementById('notepadScreen').classList.add('active');
       } else {
-        alert('Contraseña incorecta, intenta de nuevo');
+        alert('Contraseña incorrecta, intenta de nuevo');
         input = '';
         updateDisplay();
-        //display.textContent = '••••';
       }
     }
   }
 
-  //Function Current Date
-function todayDate(){
-    const tDate = new Date();
-    let tDateSt = tDate.toLocaleDateString("es-AR", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-    });
-    tDateSt = tDateSt.charAt(0).toUpperCase() + tDateSt.slice(1);
-    console.log(tDateSt);
-    return tDateSt;
-}
+  // Function Current Date
+  function todayDate(){
+      const tDate = new Date();
+      let tDateSt = tDate.toLocaleDateString("es-AR", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+      });
+      tDateSt = tDateSt.charAt(0).toUpperCase() + tDateSt.slice(1);
+      return tDateSt;
+  }
 
-function showDate(){
-    document.getElementById("date").innerHTML = todayDate();   
-}
+  function showDate(){
+      document.getElementById("date").innerHTML = todayDate();   
+  }
 
-showDate();
+  showDate();
 </script>
 </body>
 </html>
