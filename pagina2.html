@@ -110,15 +110,16 @@
     }
 
     function moverNo(e) {
+      const btn = document.getElementById("noBtn");
+
       // En móvil evitamos que se dispare el click antes de moverse
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
 
-      const btn = document.getElementById("noBtn");
-      // Quitar el foco para que no quede seleccionado
-  btn.blur();
+    // Quitar el foco para que no quede seleccionado
+    btn.blur();
 
       // Rango de movimiento más razonable para móviles
       const maxX = 80;
@@ -127,6 +128,10 @@
       const y = Math.random() * (maxY * 2) - maxY; // entre -500 y -400
 
       btn.style.transform = `translate(${x}px, ${y}px)`;
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }
   </script>
 
